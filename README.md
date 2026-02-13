@@ -260,7 +260,7 @@ pytest tests/test_transform.py
 # Start Jupyter Notebook
 jupyter notebook
 
-# Open and run: "AnyoneAI - Sprint Project 01.ipynb"
+# Open and run: "elt_pipeline.ipynb"
 # Execute all cells in order
 ```
 
@@ -426,7 +426,7 @@ Sprint_01-Marissa_Singh/
 │   ├── test_extract.py
 │   └── test_transform.py
 ├── ASSIGNMENT.md                     # Project instructions
-├── AnyoneAI - Sprint Project 01.ipynb # Main Jupyter notebook
+├── elt_pipeline.ipynb               # Main Jupyter notebook
 ├── README.md                         # This file
 ├── README_og.md                      # Original README
 ├── requirements.txt                  # Python dependencies
