@@ -1,0 +1,7 @@
+
+SELECT 
+    order_status,
+    COUNT(*) AS Amount
+FROM olist_orders oo 
+GROUP BY order_status 
+ORDER BY order_status ASC;
