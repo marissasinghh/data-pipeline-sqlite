@@ -33,7 +33,7 @@ A major Latin American e-commerce platform needs to understand their business pe
 - **Delivery time accuracy**: Difference between estimated and actual delivery dates
 - **Monthly delivery performance** trends (real vs. estimated delivery times)
 - **State-level delivery efficiency** metrics
-- **Impact of public holidays** on order volumes and delivery patterns
+- **Impact of public holidays** on 2017 daily order volume (not on delivery times)
 - **Freight value vs. product weight** correlation analysis
 
 The solution requires building a **reusable ELT (Extract, Load, Transform) pipeline** that can be executed periodically to generate these insights.
@@ -90,7 +90,7 @@ This project implements an **ELT (Extract, Load, Transform) pipeline** architect
 - **Database Creation**: Initializes SQLite database (`olist.db`)
 - **Table Creation**: Maps CSV files to database tables
 - **Data Loading**: Uses SQLAlchemy to load DataFrames into SQLite
-- **Schema Management**: Handles table replacement and indexing
+- **Schema Management**: Replaces each table on load (`if_exists="replace"`); no indexes are created
 
 ### 3. Transform Phase (`src/transform.py`)
 
@@ -142,7 +142,7 @@ Two transformations use pandas for complex data manipulation:
    - Revenue per product category (top/bottom 10)
 
 2. **Delivery Metrics**
-   - Average delivery delay (days) by state
+   - Average of estimated minus actual delivery date (days) by state
    - Real vs. estimated delivery time (monthly)
    - Delivery performance trends
 
@@ -156,15 +156,15 @@ Two transformations use pandas for complex data manipulation:
 ## Results
 
 ### Revenue Insights
-- **2017**: Revenue increases from Q1 to Q4, with peak in December (~R$1.08M).
-- **2018**: Highest revenue in the first eight months, with August peak (~R$1.32M).
+- **2017**: December is the peak (~R$1.08M). April, June, and November are below the previous month.
+- **2018**: August is the peak (~R$1.32M). September through December are R$12,875.18, R$347.95, R$0.00, and R$0.00.
 - **State distribution**: Top 10 states by revenue are identified; results show concentration patterns.
 - **Category performance**: High- and low-performing product categories are identified.
 
 ### Delivery Insights
 - **Delivery accuracy**: State-level metrics show variation in delivery performance.
 - **Time trends**: Monthly comparison of actual vs. estimated delivery times.
-- **Holiday impact**: Order volumes and delivery times are correlated with public holidays.
+- **Holiday impact**: 2017 daily order volume shifts around public holidays. Delivery times are not joined to the holiday calendar.
 - **Shipping costs**: Relationship between product weight and freight value is analyzed.
 
 ### Visualizations Generated
@@ -337,7 +337,7 @@ black --line-length=88 .
 │  • Create SQLite database (olist.db)                           │
 │  • Map CSV files to database tables                             │
 │  • Load DataFrames using SQLAlchemy                             │
-│  • Create indexes for performance                                │
+│  • Replace tables on each load (no indexes)                      │
 └─────────────────────────────────────────────────────────────────┘
             │
             ▼
